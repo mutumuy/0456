@@ -10,7 +10,6 @@ public class MaquinaExpendedoraMejorada {
     private String estacionOrigen;
     // El destino del billete
     private String estacionDestino;
-
     /**
      * Crea una maquina expendedora de billetes de tren con el 
      * precio del billete y el origen y destino dados. Se asume que el precio
@@ -85,4 +84,11 @@ public class MaquinaExpendedoraMejorada {
         balanceClienteActual = 0;
         return cantidadDeDineroADevolver;
     } 
+    
+    public int vaciarDineroDeLaMaquina()
+    {
+        int dineroAVaciar;
+        dineroAVaciar = totalDineroAcumulado + balanceClienteActual;
+        return dineroAVaciar;
+    }
 }
