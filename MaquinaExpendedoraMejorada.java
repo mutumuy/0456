@@ -10,17 +10,20 @@ public class MaquinaExpendedoraMejorada {
     private String estacionOrigen;
     // El destino del billete
     private String estacionDestino;
+    private boolean billeteConPremio;
+    // Posibilidad de billete con premio
     /**
      * Crea una maquina expendedora de billetes de tren con el 
      * precio del billete y el origen y destino dados. Se asume que el precio
      * del billete que se recibe es mayor que 0.
      */
-    public MaquinaExpendedoraMejorada(int precioDelBillete, String origen, String destino) {
+    public MaquinaExpendedoraMejorada(int precioDelBillete, String origen, String destino , boolean premio) {
         precioBillete = precioDelBillete;
         balanceClienteActual = 0;
         totalDineroAcumulado = 0;
         estacionOrigen = origen;
         estacionDestino = destino;
+        billeteConPremio = premio;
     }
 
     /**
@@ -66,6 +69,9 @@ public class MaquinaExpendedoraMejorada {
             totalDineroAcumulado = totalDineroAcumulado + precioBillete;
             // Reduce el balance del cliente actual dejandole seguir utilizando la maquina
             balanceClienteActual = balanceClienteActual - precioBillete;
+            if (billeteConPremio) {
+                System.out.println("Este billete tiene premio");
+            }
         }
         else {
             System.out.println("Necesitas introducir " + (precioBillete - balanceClienteActual) + " euros mas!");
@@ -84,11 +90,17 @@ public class MaquinaExpendedoraMejorada {
         balanceClienteActual = 0;
         return cantidadDeDineroADevolver;
     } 
-    
-    public int vaciarDineroDeLaMaquina()
-    {
-        int dineroAVaciar;
-        dineroAVaciar = totalDineroAcumulado + balanceClienteActual;
-        return dineroAVaciar;
+    public int vaciarDineroMaquina() {
+        int dineroADevolver = -1;
+        if (balanceClienteActual == 0){
+            //No hay operacion en curso
+            dineroADevolver = totalDineroAcumulado;
+            totalDineroAcumulado = 0;
+        }
+        else {
+            //No hay una operacion en curso
+            System.out.println("Hay una operacion en curso");
+        }
+        return dineroADevolver;
     }
 }
